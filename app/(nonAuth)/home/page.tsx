@@ -67,7 +67,6 @@ const HomePage = () => {
   if (error) {
     return <p>에러 발생: {error.message}</p>;
   }
-
   return (
     <section>
       <div>
@@ -78,21 +77,22 @@ const HomePage = () => {
       </div>
       <div>
         <h1>샘플 Todo App</h1>
-        {todos.map((todo: Todo) => (
-          <ul key={todo.id}>
-            <li>{todo.title}</li>
-            <li>{todo.content}</li>
-            <button onClick={() => handleDeleteTodo(todo.id)}>삭제하기</button>
-          </ul>
-        ))}
+
         <form onSubmit={handleOnSubmit}>
           <label htmlFor={titleId}>Title</label>
           <input type="text" id={titleId} name="title" required />
-
           <label htmlFor={contentId}>content</label>
           <input type="text" id={contentId} name="content" required />
           <button type="submit">추가하기</button>
         </form>
+
+        {todos.map((todo: Todo) => (
+          <ul key={todo.id}>
+            <li>제목: {todo.title}</li>
+            <li>내용: {todo.content}</li>
+            <button onClick={() => handleDeleteTodo(todo.id)}>삭제하기</button>
+          </ul>
+        ))}
       </div>
     </section>
   );

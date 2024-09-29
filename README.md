@@ -61,6 +61,6 @@
 
 - Client State 관리 : `Zustand`
 - Server State 관리 : `React Query`
-- 디자인(UI) : `Next UI`, `Tailwind CSS`
+- 디자인(UI) : `Tailwind CSS`
 - 인증인가 : `Next Auth`
 - Server: `json-server`
