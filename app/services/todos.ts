@@ -6,11 +6,17 @@ const todosAxios = axios.create({
 });
 
 // todo 조회
-export const getTodos = async () => {
-  const responst = await todosAxios.get("~~~");
+export const fetchTodos = async () => {
+  const response = await todosAxios.get("/todos");
+  return response.data;
 };
 
 // todo 추가
 export const addTodo = async (todo: Todo) => {
   return await todosAxios.post(`/todos`, todo);
+};
+
+// todo 삭제
+export const deleteTodo = async (id: String) => {
+  return await todosAxios.delete(`/todos/${id}`);
 };
