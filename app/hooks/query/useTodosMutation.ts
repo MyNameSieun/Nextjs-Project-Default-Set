@@ -1,7 +1,7 @@
-import { addTodo, deleteTodo, toggleTodo } from "@/app/services/todos";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "./keys.constant";
 import { ToggleTodo } from "@/app/types/todo-types";
+import { addTodo, deleteTodo, toggleTodo } from "@/app/actions/todo-actions";
 
 export const useAddTodoMutation = () => {
   const queryClient = useQueryClient();

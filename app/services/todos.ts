@@ -1,9 +1,3 @@
-import axios from "axios";
-import { Todo } from "../types/todo-types";
-
-const todosAxios = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
-});
 const baseURL = process.env.NEXT_PUBLIC_SERVER_URL;
 
 // todo 조회
@@ -25,27 +19,36 @@ export const getSingleTodo = async (id: string) => {
   return data;
 };
 
-// todo 추가
-export const addTodo = async (todo: Todo) => {
-  const response = await fetch(`${baseURL}/todos`, {
-    method: "post",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(todo),
-  });
-  return response.json();
-};
+// // todo 추가
+// export const addTodo = async (todo: Todo) => {
+//   const response = await fetch(`${baseURL}/todos`, {
+//     method: "post",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify(todo),
+//   });
+//   const data = await response.json();
 
-// todo 삭제
-export const deleteTodo = async (id: String) => {
-  return await todosAxios.delete(`/todos/${id}`);
-};
+//   return data;
+// };
 
-// todo 토글
-export const toggleTodo = async (id: string, isDone: boolean) => {
-  const response = await fetch(`${baseURL}/todos/${id}`, {
-    method: "PATCH",
-    cache: "no-cache",
-    body: JSON.stringify({ isDone }),
-  });
-  return response.json();
-};
+// // todo 삭제
+// export const deleteTodo = async (id: string) => {
+//   const response = await fetch(`${baseURL}/todos/${id}`, {
+//     method: "DELETE",
+//   });
+//   const data = await response.json();
+
+//   return data;
+// };
+
+// // todo 토글
+// export const toggleTodo = async (id: string, isDone: boolean) => {
+//   const response = await fetch(`${baseURL}/todos/${id}`, {
+//     method: "PATCH",
+//     cache: "no-cache",
+//     body: JSON.stringify({ isDone }),
+//   });
+//   const data = await response.json();
+
+//   return data;
+// };
