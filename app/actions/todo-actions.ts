@@ -1,6 +1,6 @@
 "use server";
 
-import { Todo } from "../types/todo-types";
+import { EditTodo, Todo } from "../types/todo-types";
 
 const baseURL = process.env.NEXT_PUBLIC_SERVER_URL;
 
@@ -20,6 +20,18 @@ export const addTodo = async (todo: Todo) => {
 export const deleteTodo = async (todoId: string) => {
   const response = await fetch(`${baseURL}/todos/${todoId}`, {
     method: "DELETE",
+  });
+  const data = await response.json();
+
+  return data;
+};
+
+// todo 수정
+export const editTodo = async (id: string, { title, content }: EditTodo) => {
+  const response = await fetch(`${baseURL}/todos/${id}`, {
+    method: "PATCH",
+    cache: "no-cache",
+    body: JSON.stringify({ title, content }),
   });
   const data = await response.json();
 

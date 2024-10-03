@@ -1,7 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "./keys.constant";
-import { ToggleTodo } from "@/app/types/todo-types";
-import { addTodo, deleteTodo, toggleTodo } from "@/app/actions/todo-actions";
+import { EditTodo, ToggleTodo } from "@/app/types/todo-types";
+import {
+  addTodo,
+  deleteTodo,
+  editTodo,
+  toggleTodo,
+} from "@/app/actions/todo-actions";
 
 export const useAddTodoMutation = () => {
   const queryClient = useQueryClient();
@@ -32,6 +37,20 @@ export const useAddTodoMutation = () => {
     },
   });
 
+  // Edit Todo Mutation
+  const { mutate: editTodoMutate } = useMutation({
+    mutationFn: ({ id, title, content }: { id: string } & EditTodo) =>
+      editTodo(id, { title, content }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.TODOS] });
+      alert("수정 완료!");
+    },
+    onError: (error) => {
+      console.error("수정 실패:", error);
+      alert("수정 실패. 다시 시도해 주세요.");
+    },
+  });
+
   // toggle Todo Mutation
   const { mutate: toggleTodoMutate } = useMutation({
     mutationFn: ({ id, isDone }: ToggleTodo) => toggleTodo(id, isDone),
@@ -44,5 +63,5 @@ export const useAddTodoMutation = () => {
     },
   });
 
-  return { addTodoMutate, deleteTodoMutate, toggleTodoMutate };
+  return { addTodoMutate, deleteTodoMutate, editTodoMutate, toggleTodoMutate };
 };
