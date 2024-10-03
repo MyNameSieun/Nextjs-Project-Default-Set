@@ -6,7 +6,7 @@
 │   🎨 globals.css
 │   📄 layout.tsx
 │   📄 page.tsx
-│   📄 provider.tsx
+│   📄 providers.tsx
 │
 ├───📂 (🔓 auth)
 │   └───📂 todo
@@ -24,16 +24,30 @@
 │   └───📂 signup
 │           📄 page.tsx
 │
+├───📂 actions
+│       📄 todo-actions.ts
+│
 ├───📂 api
 │   └───📂 auth
 │       └───📂 [...nextauth]
 │               📄 route.ts
 │
 ├───📂 components
+│   📄 SessionEx.tsx
+│   📄 TodoDetail.tsx
+│   📄 ZustandEx.tsx
 │   ├───📂 common
 │   │       📄 SignInOutButton.tsx
-│   └───📂 layouts
-│           📄 Header.tsx
+│   ├───📂 layouts
+│   │       📄 Header.tsx
+│   └───📂 todo
+│           📄 TodoForm.tsx
+│           📄 TodoItem.tsx
+│           📄 TodoList.tsx
+│
+├───📂 detail
+│   └───📂 [todoId]
+│           📄 page.tsx
 │
 ├───📂 fonts
 │       🎶 GeistMonoVF.woff
@@ -42,6 +56,7 @@
 ├───📂 hooks
 │   └───📂 query
 │           📄 keys.constant.ts
+│           📄 useSingleTodoQuery.ts
 │           📄 useTodosMutation.ts
 │           📄 useTodosQuery.ts
 │
@@ -61,6 +76,6 @@
 
 - Client State 관리 : `Zustand`
 - Server State 관리 : `React Query`
-- 디자인(UI) : `Tailwind CSS`
+- 디자인(UI) : `Tailwind CSS`, `daisyUI`
 - 인증인가 : `Next Auth`
 - Server: `json-server`
