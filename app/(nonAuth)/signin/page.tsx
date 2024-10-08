@@ -11,43 +11,49 @@ const SignInPage = () => {
   const pathname = usePathname();
   const session = useSession();
 
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [password1, setPassword1] = useState("");
   const [shouldRender, setShouldRender] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (session.status === "authenticated") {
-      router.replace("/");
+      router.replace("/"); // 인증된 경우 홈으로 리디렉션
     } else {
       setShouldRender(true);
     }
   }, [router, session, pathname]);
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // 위에서(목차 3.1) 설정한 id와 연결
+    const response = await signIn("email-password-credential", {
+      email,
+      password1,
+      redirect: false,
+    });
+
+    if (response?.error) {
+      setError("로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.");
+    }
+  };
+
   return (
     <div>
       {shouldRender && (
-        <form
-          onSubmit={async (e) => {
-            e.preventDefault();
-
-            const response = await signIn("id-password-credential", {
-              id,
-              password,
-              redirect: false,
-            });
-
-            return false;
-          }}
-        >
+        <form onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="id">아이디</label>
+            <label htmlFor="email">이메일</label>
             <input
-              type="text"
-              id="id"
-              name="id"
-              value={id}
+              type="email"
+              id="email"
+              name="email"
+              value={email}
+              autoComplete="username"
+              required
               onChange={(e) => {
-                setId(e.target.value);
+                setEmail(e.target.value);
               }}
             />
           </div>
@@ -57,12 +63,15 @@ const SignInPage = () => {
               type="password"
               id="password"
               name="password"
-              value={password}
+              value={password1}
+              autoComplete="current-password"
+              required
               onChange={(e) => {
-                setPassword(e.target.value);
+                setPassword1(e.target.value);
               }}
             />
           </div>
+          {error && <div className="text-red-500">{error}</div>}
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
             type="submit"

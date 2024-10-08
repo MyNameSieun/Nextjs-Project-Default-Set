@@ -4,14 +4,15 @@ import CredentialsProvider from "next-auth/providers/credentials";
 const handler = NextAuth({
   providers: [
     CredentialsProvider({
-      id: "id-password-credential",
+      id: "email-password-credential", // 꼭 설정 할 것 (목차 3.3과 연결)
       name: "Credentials",
       type: "credentials",
+      // credentials안에 있는 요소들은 목차 3.3의 input과 연결
       credentials: {
-        id: {
-          label: "아이디",
-          type: "text",
-          placeholder: "아이디를 입력해주세요.",
+        email: {
+          label: "이메일",
+          type: "email",
+          placeholder: "이메일을 입력해주세요.",
         },
         password: {
           label: "비밀번호",
@@ -21,7 +22,7 @@ const handler = NextAuth({
       },
       async authorize(credentials, req) {
         // 로그인 요청을 처리하는 부분
-        const res = await fetch("http://moneyfulpublicpolicy.co.kr/login", {
+        const res = await fetch("http://localhost:8080/login", {
           method: "POST",
           body: JSON.stringify(credentials),
           headers: {

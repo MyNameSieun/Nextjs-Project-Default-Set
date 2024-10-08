@@ -1,3 +1,7 @@
+[[API 명세서↗️]](https://github.com/MyNameSieun/skuCampusAlarm-back)
+
+<br>
+
 # 폴더구조
 
 ```
